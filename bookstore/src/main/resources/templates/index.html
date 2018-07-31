@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Bookstore</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"/>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+            integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+            crossorigin="anonymous"></script>
+    <script src="@{/js/main.js}"></script>
+
+
+</head>
+<body>
+
+<div th:include="layout :: head"/>
+
+<section>
+
+    <h2>Home Page</h2>
+    <h4>Moby Dickens</h4>
+    <form th:action="@{/}" method="post">
+        <div>
+            <label>Search Book: </label>
+            <input name="filterName" type="text" placeholder="Type into author or Book title..."/>
+            <button>Filter</button>
+        </div>
+        <table>
+            <caption>Bookstore Database</caption>
+            <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th>title</th>
+                <th>isbn</th>
+                <th>author</th>
+                <th>datePublished</th>
+                <th>Genre</th>
+                <th>price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="Book : ${bookList}">
+                <td><a th:if="${#httpServletRequest.remoteUser}" th:href="${'/admin/bookstore/edit/' + Book.bookId}">Edit</a></td>
+                <td><a th:if="${#httpServletRequest.remoteUser}" th:href="${'admin/bookstore/delete/' + Book.bookId}">Delete</a></td>
+                <td><p th:text="${Book.title}"></p></td>
+                <td><p th:text="${Book.isbn}"></p></td>
+                <td><p th:text="${Book.author}"></p></td>
+                <td><p th:text="${Book.datePublished}"></p></td>
+                <td><p th:text="${Book.Genre}"></p></td>
+                <td><p th:text="${Book.price}"></p></td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</section>
+
+<div th:class="slideshow-container">
+    <div th:class="mySlides">
+        <div th:class="numbertext">1 / 3</div>
+        <div style="text-align: center"><img th:src="@{/images/img1.jpg}" style="width:70%"/></div>
+        <div th:class="text">Caption Text</div>
+    </div>
+
+    <div th:class="mySlides">
+        <div th:class="numbertext">2 / 3</div>
+        <div style="text-align: center"><img th:src="@{/images/img2.jpg}" style="width:70%"/></div>
+        <div th:class="text">Caption Two</div>
+    </div>
+
+    <div th:class="mySlides">
+        <div th:class="numbertext">3 / 3</div>
+        <div style="text-align: center"><img th:src="@{/images/img3.jpg}" style="width:70%"/></div>
+        <div th:class="text">Caption Three</div>
+    </div>
+
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+</div>
+
+<div style="text-align:center">
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+    <span class="dot" onclick="currentSlide(3)"></span>
+</div>
+
+<div th:include="layout :: foot"/>
+
+</body>
+</html>

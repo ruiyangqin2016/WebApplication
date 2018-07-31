@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Layout</title>
+    <style>
+        li{float: left; list-style: none}
+    </style>
+</head>
+<body>
+
+<!-- header -->
+<div th:fragment="head">
+    <header>
+        <h1><a href="/" title="Click here to return home.">Bookstore</a></h1>
+
+        <p th:if="${#httpServletRequest.remoteUser}" th:inline="text">
+            [[${#httpServletRequest.remoteUser}]]</p>
+
+
+        <div class="topnav" id="myTopnav">
+            <a href="/login">Login</a>
+            <a href="/contact-us">Contact</a>
+            <a href="/about-us">About</a>
+            <a href="/console">H2 Console</a>
+            <a href="/api/books">API</a>
+            <li th:if="${#httpServletRequest.remoteUser}"><a href="/admin/bookstore/view">Database</a></li>
+            <li th:if="${#httpServletRequest.remoteUser}"><a href="/admin/bookstore/add">Add</a></li>
+            <li th:if="${#httpServletRequest.remoteUser}"><a href="/logout">Logout</a></li>
+        </div>
+
+    </header>
+
+</div>
+
+
+<!-- Footer -->
+<div th:fragment="foot">
+    <footer>
+        <div>
+            <cite>&copy; 2013 Ryan Bookstore Inc.</cite>
+        </div>
+    </footer>
+</div>
+
+
+</body>
+</html>
